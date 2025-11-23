@@ -2,18 +2,22 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Keyzer - Creator Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         :root {
-            /* Paleta inspirada en Sora Kasugano */
+            /* --- PALETA ORIGINAL (Sora Kasugano) --- */
             --primary-pink: #FFB6D9;
             --secondary-pink: #FFC8DD;
             --light-blue: #BDE0FE;
@@ -23,6 +27,12 @@
             --gradient-1: linear-gradient(135deg, #FFB6D9 0%, #BDE0FE 100%);
             --gradient-2: linear-gradient(135deg, #E7C6FF 0%, #FFC8DD 100%);
             --shadow: 0 20px 60px rgba(255, 182, 217, 0.3);
+            
+            /* --- VARIABLES NUEVAS PARA EL FOOTER --- */
+            --card-glass: rgba(255, 255, 255, 0.65);
+            --card-border-new: rgba(255, 255, 255, 0.8);
+            --text-dark: #1a1a2e;
+            --accent-purple: #7B2CBF;
         }
 
         body {
@@ -34,162 +44,52 @@
             min-height: 100vh;
         }
 
+        /* =========================================
+           PARTE SUPERIOR (INTACTA)
+           ========================================= */
+
         /* Intro Animation */
         .intro-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            z-index: 9998;
-            pointer-events: none;
+            z-index: 9998; pointer-events: none;
             animation: fadeOutBackground 1.5s ease 1s forwards;
         }
-
-        @keyframes fadeOutBackground {
-            to {
-                opacity: 0;
-                visibility: hidden;
-            }
-        }
+        @keyframes fadeOutBackground { to { opacity: 0; visibility: hidden; } }
 
         .intro-text {
-            font-size: 15vw;
-            font-weight: bold;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 15vw; font-weight: bold;
+            background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             text-shadow: 0 0 60px rgba(255, 182, 217, 0.8);
             animation: introToHeader 2.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-            letter-spacing: 0.2em;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
+            letter-spacing: 0.2em; position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); z-index: 9999;
         }
 
         @keyframes introToHeader {
-            0% {
-                font-size: 15vw;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%) scale(0.3);
-                opacity: 0;
-                letter-spacing: -0.1em;
-            }
-            20% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.1);
-            }
-            50% {
-                font-size: 15vw;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%) scale(1);
-                letter-spacing: 0.2em;
-            }
-            100% {
-                font-size: 3em;
-                top: 180px;
-                left: 50%;
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0;
-                letter-spacing: normal;
-            }
+            0% { font-size: 15vw; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.3); opacity: 0; letter-spacing: -0.1em; }
+            20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+            50% { font-size: 15vw; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1); letter-spacing: 0.2em; }
+            100% { font-size: 3em; top: 180px; left: 50%; transform: translate(-50%, -50%) scale(1); opacity: 0; letter-spacing: normal; }
         }
 
         /* Hide content during intro */
-        .container {
-            opacity: 0;
-            animation: fadeInContent 1.2s ease 1.5s forwards;
-        }
+        .container { opacity: 0; animation: fadeInContent 1.2s ease 1.5s forwards; }
+        @keyframes fadeInContent { to { opacity: 1; } }
 
-        @keyframes fadeInContent {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .header h1 {
-            opacity: 0;
-            animation: fadeInTitle 0.5s ease 2.3s forwards;
-        }
-
-        .subtitle, .bio {
-            opacity: 0;
-            animation: fadeInContent 0.8s ease 2s forwards;
-        }
-
-        .profile-image-container {
-            opacity: 0;
-            animation: fadeInContent 1s ease 1.8s forwards;
-        }
-
-        @keyframes fadeInTitle {
-            to {
-                opacity: 1;
-            }
-        }
+        .header h1 { opacity: 0; animation: fadeInTitle 0.5s ease 2.3s forwards; }
+        .subtitle, .bio { opacity: 0; animation: fadeInContent 0.8s ease 2s forwards; }
+        .profile-image-container { opacity: 0; animation: fadeInContent 1s ease 1.8s forwards; }
+        @keyframes fadeInTitle { to { opacity: 1; } }
 
         /* Video Background */
-        .video-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            overflow: hidden;
-        }
+        .video-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
+        .video-background video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; }
+        .video-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(26, 26, 46, 0.7) 0%, rgba(22, 33, 62, 0.7) 50%, rgba(26, 26, 46, 0.7) 100%); z-index: -1; pointer-events: none; }
 
-        .video-background video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-        }
-
-        /* Video overlay */
-        .video-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(26, 26, 46, 0.7) 0%, rgba(22, 33, 62, 0.7) 50%, rgba(26, 26, 46, 0.7) 100%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* Floating Particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--primary-pink);
-            border-radius: 50%;
-            animation: float 15s infinite;
-            opacity: 0.6;
-        }
-
+        /* Floating Particles (TOP) */
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+        .particle { position: absolute; width: 4px; height: 4px; background: var(--primary-pink); border-radius: 50%; animation: float 15s infinite; opacity: 0.6; }
         @keyframes float {
             0%, 100% { transform: translateY(0) translateX(0); }
             25% { transform: translateY(-100px) translateX(50px); }
@@ -198,513 +98,426 @@
         }
 
         /* Main Container */
-        .container {
-            position: relative;
-            z-index: 2;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            min-height: 100vh;
-        }
+        .container { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; padding: 40px 20px 20px; min-height: 50vh; }
 
         /* Header Section */
-        .header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .profile-image-container {
-            position: relative;
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 30px;
-            perspective: 1000px;
-        }
-
-        .profile-image-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
-        }
-
-        .profile-image-container:hover .profile-image-wrapper {
-            transform: rotateY(180deg);
-        }
-
-        .profile-image, .profile-image-back {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 5px solid var(--primary-pink);
-            box-shadow: var(--shadow);
-            object-fit: cover;
-            object-position: center center;
-            position: absolute;
-            top: 0;
-            left: 0;
-            backface-visibility: hidden;
-            background: linear-gradient(135deg, #2a2a3e 0%, #1a1a2e 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .profile-image-back {
-            transform: rotateY(180deg);
-        }
-
-        .glow-effect {
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: var(--gradient-1);
-            border-radius: 50%;
-            z-index: -1;
-            filter: blur(20px);
-            opacity: 0.6;
-            animation: pulse 3s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.05); }
-        }
-
-        h1 {
-            font-size: 3em;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-            font-weight: bold;
-            text-shadow: 0 0 30px rgba(255, 182, 217, 0.5);
-            cursor: pointer;
-        }
-
-        .subtitle {
-            font-size: 1.2em;
-            color: var(--light-blue);
-            margin-bottom: 20px;
-            opacity: 0.9;
-            min-height: 1.5em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .rotating-text {
-            display: inline-block;
-            color: var(--primary-pink);
-            font-weight: 600;
-            width: 250px;
-            text-align: center;
-            position: relative;
-            height: 1.5em;
-            overflow: hidden;
-        }
-
-        .rotating-text span {
-            display: block;
-            animation: rotateText 9s infinite;
-            opacity: 0;
-            position: absolute;
-            left: 0;
-            right: 0;
-            width: 100%;
-            white-space: nowrap;
-        }
-
-        .rotating-text span:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .rotating-text span:nth-child(2) {
-            animation-delay: 3s;
-        }
-
-        .rotating-text span:nth-child(3) {
-            animation-delay: 6s;
-        }
-
-        @keyframes rotateText {
-            0%, 33.33% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            36.66%, 100% {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-        }
-
-        .bio {
-            color: var(--secondary-pink);
-            line-height: 1.6;
-            max-width: 500px;
-            margin: 0 auto;
-        }
+        .header { text-align: center; margin-bottom: 50px; }
+        .profile-image-container { position: relative; width: 180px; height: 180px; margin: 0 auto 30px; perspective: 1000px; }
+        .profile-image-wrapper { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s; }
+        .profile-image-container:hover .profile-image-wrapper { transform: rotateY(180deg); }
+        .profile-image, .profile-image-back { width: 180px; height: 180px; border-radius: 50%; border: 5px solid var(--primary-pink); box-shadow: var(--shadow); object-fit: cover; object-position: center center; position: absolute; top: 0; left: 0; backface-visibility: hidden; background: linear-gradient(135deg, #2a2a3e 0%, #1a1a2e 100%); display: flex; align-items: center; justify-content: center; }
+        .profile-image-back { transform: rotateY(180deg); }
+        .glow-effect { position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; background: var(--gradient-1); border-radius: 50%; z-index: -1; filter: blur(20px); opacity: 0.6; animation: pulse 3s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.05); } }
+        
+        h1 { font-size: 3em; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px; font-weight: bold; text-shadow: 0 0 30px rgba(255, 182, 217, 0.5); cursor: pointer; }
+        
+        .subtitle { font-size: 1.2em; color: var(--light-blue); margin-bottom: 20px; opacity: 0.9; min-height: 1.5em; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .rotating-text { display: inline-block; color: var(--primary-pink); font-weight: 600; width: 250px; text-align: center; position: relative; height: 1.5em; overflow: hidden; }
+        .rotating-text span { display: block; animation: rotateText 9s infinite; opacity: 0; position: absolute; left: 0; right: 0; width: 100%; white-space: nowrap; }
+        .rotating-text span:nth-child(1) { animation-delay: 0s; } .rotating-text span:nth-child(2) { animation-delay: 3s; } .rotating-text span:nth-child(3) { animation-delay: 6s; }
+        @keyframes rotateText { 0%, 33.33% { opacity: 1; transform: translateY(0); } 36.66%, 100% { opacity: 0; transform: translateY(-10px); } }
+        .bio { color: var(--secondary-pink); line-height: 1.6; max-width: 500px; margin: 0 auto; }
 
         /* Links Section */
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 40px;
+        .links { display: flex; flex-direction: column; gap: 20px; margin-top: 40px; }
+        .link-card { position: relative; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 2px solid rgba(255, 182, 217, 0.3); border-radius: 20px; padding: 25px 30px; text-decoration: none; color: var(--white); font-size: 1.1em; font-weight: 600; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); overflow: hidden; display: flex; align-items: center; gap: 15px; }
+        .link-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--gradient-1); transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1); z-index: -1; }
+        .link-card:hover { transform: translateY(-5px) scale(1.02); border-color: var(--primary-pink); box-shadow: var(--shadow); }
+        .link-card:hover::before { left: 0; }
+        .link-icon { font-size: 1.5em; min-width: 30px; }
+
+        /* Discord Presence */
+        .discord-section { margin-top: 60px; text-align: center; }
+        .discord-section h2 { font-size: 2em; background: var(--gradient-2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 30px; }
+        .discord-card { max-width: 400px; margin: 30px auto; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 2px solid rgba(255, 182, 217, 0.3); border-radius: 20px; padding: 30px; box-shadow: var(--shadow); transition: all 0.4s ease; }
+        .discord-card:hover { transform: translateY(-5px); border-color: var(--primary-pink); box-shadow: 0 15px 40px rgba(255, 182, 217, 0.4); }
+        .discord-status { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .discord-avatar { width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--primary-pink); position: relative; }
+        .discord-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .status-indicator { position: absolute; bottom: 2px; right: 2px; width: 20px; height: 20px; border-radius: 50%; border: 3px solid rgba(0, 0, 0, 0.8); }
+        .status-online { background: #43b581; } .status-idle { background: #faa61a; } .status-dnd { background: #f04747; } .status-offline { background: #747f8d; }
+        .discord-info { flex: 1; text-align: left; }
+        .discord-username { font-size: 1.3em; font-weight: bold; color: var(--white); margin-bottom: 5px; }
+        .discord-tag { font-size: 0.9em; color: var(--light-blue); opacity: 0.8; }
+        .discord-activity { background: rgba(255, 182, 217, 0.1); border-radius: 15px; padding: 15px; margin-top: 15px; text-align: left; }
+        .activity-name { font-size: 1.1em; font-weight: 600; color: var(--primary-pink); margin-bottom: 5px; }
+        .activity-details { font-size: 0.9em; color: var(--white); opacity: 0.8; margin: 5px 0; }
+        .activity-state { font-size: 0.85em; color: var(--light-blue); opacity: 0.7; }
+        .loading-pulse { animation: pulse 1.5s ease-in-out infinite; }
+        
+        /* Social Icons */
+        .social-icons { display: flex; justify-content: center; gap: 20px; margin-top: 50px; }
+        .social-icon { width: 50px; height: 50px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: var(--white); text-decoration: none; border: 2px solid rgba(255, 182, 217, 0.3); transition: all 0.3s ease; }
+        .social-icon:hover { background: var(--gradient-1); border-color: var(--primary-pink); transform: translateY(-5px) rotate(360deg); box-shadow: var(--shadow); }
+
+        /* Animations */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in-up { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
+        
+        /* Footer Original Top */
+        .original-footer { text-align: center; margin-top: 80px; padding: 40px 20px; color: var(--light-blue); opacity: 0.8; }
+
+        /* 3D Cube Animation */
+        .cube-container { position: fixed; top: 10%; right: 10%; width: 150px; height: 150px; perspective: 1000px; z-index: 1; transition: opacity 0.5s ease, transform 0.3s ease; cursor: grab; }
+        .cube-container-2 { position: fixed; bottom: 10%; left: 10%; width: 150px; height: 150px; perspective: 1000px; z-index: 1; transition: opacity 0.5s ease, transform 0.3s ease; cursor: grab; }
+        .cube-container.hidden, .cube-container-2.hidden { opacity: 0; pointer-events: none; }
+        
+        .cube-container:active, .cube-container-2:active { cursor: grabbing; }
+
+        .cube, .cube-2 { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.1s ease-out; }
+        .cube-face { position: absolute; width: 150px; height: 150px; border: 2px solid var(--primary-pink); background: rgba(255, 182, 217, 0.1); backdrop-filter: blur(10px); opacity: 0.8; }
+        .cube-face.front { transform: rotateY(0deg) translateZ(75px); } .cube-face.back { transform: rotateY(180deg) translateZ(75px); } .cube-face.right { transform: rotateY(90deg) translateZ(75px); } .cube-face.left { transform: rotateY(-90deg) translateZ(75px); } .cube-face.top { transform: rotateX(90deg) translateZ(75px); } .cube-face.bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+        /* =========================================
+           PARTE INFERIOR PREMIUM (PORTAL & STACK)
+           ========================================= */
+
+        /* --- SECTION: APRENDE MÁS DE MÍ --- */
+        .scroll-trigger-section {
+            height: 350vh; 
+            position: relative;
+            z-index: 10;
         }
 
-        .link-card {
-            position: relative;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 182, 217, 0.3);
-            border-radius: 20px;
-            padding: 25px 30px;
-            text-decoration: none;
-            color: var(--white);
-            font-size: 1.1em;
-            font-weight: 600;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        .trigger-sticky-container {
+            position: sticky; top: 0;
+            height: 100vh; width: 100%;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            pointer-events: none; 
         }
 
-        .link-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-1);
-            transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        .dynamic-bg {
+            position: absolute; top: 50%; left: 50%;
+            width: 100vmax; height: 100vmax;
+            background: radial-gradient(circle, #E7BBEA 0%, #C8B6FF 100%);
+            transform: translate(-50%, -50%) scale(0);
+            border-radius: 50%;
+            transition: transform 0.1s linear;
             z-index: -1;
+            pointer-events: none;
         }
 
-        .link-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            border-color: var(--primary-pink);
-            box-shadow: var(--shadow);
-        }
-
-        .link-card:hover::before {
-            left: 0;
-        }
-
-        .link-icon {
-            font-size: 1.5em;
-            min-width: 30px;
-        }
-
-        /* Discord Presence Section */
-        .discord-section {
-            margin-top: 60px;
-            text-align: center;
-        }
-
-        .discord-section h2 {
-            font-size: 2em;
-            background: var(--gradient-2);
+        /* EFECTO CAMALEÓN (CHAMELEON EFFECT) */
+        .big-text {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900; text-align: center;
+            line-height: 1; text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+            
+            /* Gradient Background for Text */
+            background: linear-gradient(
+                45deg, 
+                #FFB6D9, /* Pink */
+                #E7C6FF, /* Lavender */
+                #7B2CBF, /* Purple */
+                #FFB6D9  /* Back to Pink */
+            );
+            background-size: 300% 300%;
+            
+            /* Clip background to text */
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 30px;
+            
+            /* Make text transparent so background shows */
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            
+            /* Drop shadow instead of text-shadow for clipped text */
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+            
+            /* Animation */
+            animation: chameleon 6s ease infinite;
+            
+            transition: opacity 0.3s ease;
         }
 
-        .discord-card {
-            max-width: 400px;
-            margin: 30px auto;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 182, 217, 0.3);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-            transition: all 0.4s ease;
+        @keyframes chameleon {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .discord-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-pink);
-            box-shadow: 0 15px 40px rgba(255, 182, 217, 0.4);
-        }
-
-        .discord-status {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .discord-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 3px solid var(--primary-pink);
-            position: relative;
-        }
-
-        .discord-avatar img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .status-indicator {
-            position: absolute;
-            bottom: 2px;
-            right: 2px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 3px solid rgba(0, 0, 0, 0.8);
-        }
-
-        .status-online { background: #43b581; }
-        .status-idle { background: #faa61a; }
-        .status-dnd { background: #f04747; }
-        .status-offline { background: #747f8d; }
-
-        .discord-info {
-            flex: 1;
-            text-align: left;
-        }
-
-        .discord-username {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: var(--white);
-            margin-bottom: 5px;
-        }
-
-        .discord-tag {
-            font-size: 0.9em;
-            color: var(--light-blue);
-            opacity: 0.8;
-        }
-
-        .discord-activity {
-            background: rgba(255, 182, 217, 0.1);
-            border-radius: 15px;
-            padding: 15px;
-            margin-top: 15px;
-            text-align: left;
-        }
-
-        .activity-name {
-            font-size: 1.1em;
-            font-weight: 600;
-            color: var(--primary-pink);
-            margin-bottom: 5px;
-        }
-
-        .activity-details {
-            font-size: 0.9em;
-            color: var(--white);
-            opacity: 0.8;
-            margin: 5px 0;
-        }
-
-        .activity-state {
-            font-size: 0.85em;
-            color: var(--light-blue);
+        .scroll-indicator {
+            position: absolute; bottom: 50px;
+            font-size: 2rem; color: white;
+            animation: bounce 2s infinite;
             opacity: 0.7;
         }
 
-        .loading-pulse {
-            animation: pulse 1.5s ease-in-out infinite;
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        /* --- CARDS SECTION (Glass Stack) --- */
+        .cards-section {
+            position: relative;
+            background: #E7BBEA; 
+            padding-bottom: 100px;
+            z-index: 20;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .cards-wrapper {
+            max-width: 800px; margin: 0 auto;
+            padding: 100px 20px;
+            position: relative;
         }
 
-        /* Social Icons */
-        .social-icons {
+        .info-card {
+            position: sticky; 
+            top: 15vh;
+            min-height: 400px;
+            margin-bottom: 10vh;
+            
+            background: var(--card-glass);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--card-border-new);
+            border-radius: 30px;
+            
+            padding: 40px;
+            color: var(--text-dark);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            
+            transform-origin: center top;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+
+        /* Stack Effect */
+        .info-card:nth-child(1) { transform: rotate(-1deg); z-index: 1; }
+        .info-card:nth-child(2) { transform: rotate(1deg); z-index: 2; top: 16vh; }
+        .info-card:nth-child(3) { transform: rotate(-1deg); z-index: 3; top: 17vh; }
+        .info-card:nth-child(4) { transform: rotate(2deg); z-index: 4; top: 18vh; }
+        .info-card:nth-child(5) { transform: rotate(-1deg); z-index: 5; top: 19vh; }
+        .info-card:nth-child(6) { transform: rotate(0deg); z-index: 6; top: 20vh; margin-bottom: 0; }
+
+        .card-header {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            font-size: 2.5rem; color: var(--accent-purple);
+            background: rgba(123, 44, 191, 0.1);
+            width: 60px; height: 60px; border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .card-num {
+            font-size: 4rem; font-weight: 900; color: rgba(0,0,0,0.05);
+            line-height: 0.8; font-family: Impact, sans-serif;
+        }
+
+        .info-card h3 { font-size: 2rem; font-weight: 800; margin-bottom: 15px; color: var(--text-dark); font-family: 'Montserrat', sans-serif; }
+        .info-card p { font-size: 1.1rem; line-height: 1.6; color: #4a4a5e; }
+
+        .mini-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px;
+        }
+        
+        /* --- ESTILOS ACTUALIZADOS PARA HABILIDADES --- */
+        .mini-item {
+            background: white; 
+            padding: 20px 10px; 
+            border-radius: 12px;
+            text-align: center; 
+            font-weight: 700; 
+            font-size: 0.95rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            color: var(--text-dark);
+            
+            /* Nuevas propiedades para layout e interacción */
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            gap: 20px;
-            margin-top: 50px;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 2px solid transparent;
         }
 
-        .social-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
+        /* Iconos dentro de las mini tarjetas */
+        .mini-item i {
+            font-size: 1.8rem;
+            color: var(--accent-purple);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        /* Efecto Hover */
+        .mini-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(255, 182, 217, 0.5);
+            border-color: var(--primary-pink);
+            background: linear-gradient(to bottom right, #ffffff, #fff0f5);
+        }
+
+        .mini-item:hover i {
+            color: var(--primary-pink);
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .mini-item:active {
+            transform: scale(0.98);
+        }
+
+        /* =========================================
+           NUEVA SECCIÓN FINAL (RÉPLICA DE IMAGEN)
+           ========================================= */
+        .final-section {
+            background: #E7BBEA; 
+            padding: 50px 20px;
+            position: relative; z-index: 25;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5em;
-            color: var(--white);
-            text-decoration: none;
-            border: 2px solid rgba(255, 182, 217, 0.3);
-            transition: all 0.3s ease;
+            min-height: 100vh;
         }
 
-        .social-icon:hover {
-            background: var(--gradient-1);
-            border-color: var(--primary-pink);
-            transform: translateY(-5px) rotate(360deg);
-            box-shadow: var(--shadow);
+        /* Canvas for Mesh Background specific to Footer */
+        #meshCanvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
         }
 
-        /* Animations */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease forwards;
-            opacity: 0;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            margin-top: 80px;
-            padding: 40px 20px;
-            color: var(--light-blue);
-            opacity: 0.8;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5em;
-            }
-            
-            .profile-image-container {
-                width: 150px;
-                height: 150px;
-                margin: 0 auto 30px;
-            }
-
-            .profile-image, .profile-image-back {
-                width: 150px;
-                height: 150px;
-            }
-
-            .link-card {
-                padding: 20px 25px;
-                font-size: 1em;
-            }
-        }
-
-        /* 3D Cube Animation */
-        .cube-container {
-            position: fixed;
-            top: 10%;
-            right: 10%;
-            width: 150px;
-            height: 150px;
-            perspective: 1000px;
-            z-index: 1;
-            transition: transform 0.3s ease;
-            cursor: grab;
-        }
-
-        .cube-container-2 {
-            position: fixed;
-            bottom: 10%;
-            left: 10%;
-            width: 150px;
-            height: 150px;
-            perspective: 1000px;
-            z-index: 1;
-            transition: transform 0.3s ease;
-            cursor: grab;
-        }
-
-        .cube-container:active,
-        .cube-container-2:active {
-            cursor: grabbing;
-        }
-
-        @media (max-width: 768px) {
-            .cube-container,
-            .cube-container-2 {
-                display: none;
-            }
-            
-            .cube-face {
-                width: 80px;
-                height: 80px;
-            }
-            
-            .cube-face.front  { transform: rotateY(0deg) translateZ(40px); }
-            .cube-face.back   { transform: rotateY(180deg) translateZ(40px); }
-            .cube-face.right  { transform: rotateY(90deg) translateZ(40px); }
-            .cube-face.left   { transform: rotateY(-90deg) translateZ(40px); }
-            .cube-face.top    { transform: rotateX(90deg) translateZ(40px); }
-            .cube-face.bottom { transform: rotateX(-90deg) translateZ(40px); }
-        }
-
-        @keyframes float-cube {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-30px); }
-        }
-
-        .cube {
-            width: 100%;
-            height: 100%;
+        .final-content-wrapper {
             position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.1s ease-out;
+            z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
         }
 
-        .cube-face {
-            position: absolute;
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            border: 2px solid var(--primary-pink);
-            background: rgba(255, 182, 217, 0.1);
-            backdrop-filter: blur(10px);
-            opacity: 0.8;
+        .final-text-side {
+            flex: 1;
+            text-align: left;
+            padding-left: 5%;
         }
 
-        .cube-face.front  { transform: rotateY(0deg) translateZ(75px); }
-        .cube-face.back   { transform: rotateY(180deg) translateZ(75px); }
-        .cube-face.right  { transform: rotateY(90deg) translateZ(75px); }
-        .cube-face.left   { transform: rotateY(-90deg) translateZ(75px); }
-        .cube-face.top    { transform: rotateX(90deg) translateZ(75px); }
-        .cube-face.bottom { transform: rotateX(-90deg) translateZ(75px); }
+        .final-title {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            text-transform: uppercase;
+            line-height: 0.9;
+            font-size: clamp(3rem, 6vw, 6rem);
+            color: #1a1a2e;
+            margin-bottom: 30px;
+        }
+
+        .final-title .highlight {
+            color: var(--accent-purple);
+        }
+
+        .final-btn-new {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--accent-purple);
+            color: white;
+            padding: 20px 30px;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            box-shadow: 5px 5px 0px rgba(0,0,0,1);
+            transition: all 0.2s;
+            border: 2px solid #000;
+            margin-bottom: 40px;
+        }
+
+        .final-btn-new:active {
+            transform: translate(2px, 2px);
+            box-shadow: 3px 3px 0px rgba(0,0,0,1);
+        }
+
+        .final-links {
+            display: flex;
+            gap: 25px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #1a1a2e;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+            flex-wrap: wrap;
+        }
+
+        .final-links a { color: #1a1a2e; text-decoration: none; }
+        .final-links span { color: var(--accent-purple); }
+
+        .final-image-side {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+        }
+
+        .character-img {
+            max-height: 90vh;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(123, 44, 191, 0.3));
+        }
+
+        /* Media Queries adjustments */
+        @media (max-width: 900px) {
+            .final-content-wrapper {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                padding-top: 50px;
+            }
+
+            .final-text-side {
+                padding-left: 0;
+                order: 1;
+                margin-bottom: 30px;
+            }
+            
+            .final-title { font-size: 3.5rem; }
+            
+            .final-links {
+                justify-content: center;
+            }
+
+            .final-image-side {
+                order: 2;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .character-img {
+                max-height: 50vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Keep cubes visible but potentially smaller if needed, or hide if performance issues */
+            .cube-container, .cube-container-2 { 
+                 /* Si quieres mostrarlos en móvil, quita display:none o ajusta su tamaño */
+                 display: none; 
+            }
+            .info-card { min-height: auto; padding: 30px 20px; }
+            .info-card h3 { font-size: 1.6rem; }
+            .card-icon { width: 50px; height: 50px; font-size: 1.8rem; }
+            .card-num { font-size: 3rem; }
+            .intro-text { font-size: 12vw; white-space: nowrap; }
+        }
+
     </style>
 </head>
 <body>
-    <!-- Intro Animation -->
     <div class="intro-overlay"></div>
     <div class="intro-text">KEYZER</div>
 
-    <!-- Video Background -->
     <div class="video-background">
         <video autoplay muted loop playsinline>
             <source src="https://res.cloudinary.com/dy5a1uro5/video/upload/v1763710561/light_yv51fo.mp4" type="video/mp4">
@@ -712,45 +525,30 @@
     </div>
     <div class="video-overlay"></div>
 
-    <!-- Floating Particles -->
     <div class="particles" id="particles"></div>
 
-    <!-- 3D Cube -->
     <div class="cube-container">
         <div class="cube">
-            <div class="cube-face front"></div>
-            <div class="cube-face back"></div>
-            <div class="cube-face right"></div>
-            <div class="cube-face left"></div>
-            <div class="cube-face top"></div>
-            <div class="cube-face bottom"></div>
+            <div class="cube-face front"></div><div class="cube-face back"></div>
+            <div class="cube-face right"></div><div class="cube-face left"></div>
+            <div class="cube-face top"></div><div class="cube-face bottom"></div>
         </div>
     </div>
-
     <div class="cube-container-2">
         <div class="cube cube-2">
-            <div class="cube-face front"></div>
-            <div class="cube-face back"></div>
-            <div class="cube-face right"></div>
-            <div class="cube-face left"></div>
-            <div class="cube-face top"></div>
-            <div class="cube-face bottom"></div>
+            <div class="cube-face front"></div><div class="cube-face back"></div>
+            <div class="cube-face right"></div><div class="cube-face left"></div>
+            <div class="cube-face top"></div><div class="cube-face bottom"></div>
         </div>
     </div>
 
-    <!-- Main Container -->
     <div class="container">
-        <!-- Header -->
         <header class="header">
             <div class="profile-image-container">
                 <div class="glow-effect"></div>
                 <div class="profile-image-wrapper">
-                    <img src="foto.jpg" 
-                         alt="Keyzer Profile" 
-                         class="profile-image">
-                    <img src="back.gif" 
-                         alt="Keyzer Back" 
-                         class="profile-image-back">
+                    <img src="foto.jpg" alt="Keyzer Profile" class="profile-image">
+                    <img src="back.gif" alt="Keyzer Back" class="profile-image-back">
                 </div>
             </div>
             <h1>KEYZER</h1>
@@ -766,7 +564,6 @@
             <p class="bio">Bienvenido a mi espacio digital. Aquí encontrarás todo mi contenido, redes sociales y proyectos creativos.</p>
         </header>
 
-        <!-- Links Section -->
         <section class="links">
             <a href="https://www.youtube.com/@KeyZerMore" class="link-card fade-in-up" style="animation-delay: 0.1s" target="_blank">
                 <span class="link-icon"><i class="fab fa-youtube"></i></span>
@@ -808,7 +605,6 @@
             </div>
         </section>
 
-        <!-- Discord Presence Section -->
         <section class="discord-section fade-in-up" style="animation-delay: 0.8s">
             <h2><i class="fab fa-discord"></i> Contacta directamente <i class="fab fa-discord"></i></h2>
             <div class="discord-card" id="discord-widget">
@@ -818,7 +614,6 @@
             </div>
         </section>
 
-        <!-- Social Icons -->
         <div class="social-icons fade-in-up" style="animation-delay: 0.9s">
             <a href="https://steamcommunity.com/id/keyzer" class="social-icon" title="Steam"><i class="fab fa-steam"></i></a>
             <a href="https://pinterest.com/keyzer" class="social-icon" title="Pinterest"><i class="fab fa-pinterest"></i></a>
@@ -826,18 +621,121 @@
             <a href="https://github.com/keyzer" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
         </div>
 
-        <!-- Footer -->
-        <footer class="fade-in-up" style="animation-delay: 1s">
+        <footer class="original-footer fade-in-up" style="animation-delay: 1s">
             <p>© 2025 Powered by <span id="typewriter" style="color: var(--primary-pink); font-weight: 600;">Sora.Reworks</span></p>
             <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.7;">Diseñador · Editor · Creador</p>
         </footer>
     </div>
 
-    <!-- Lenis Smooth Scroll Library -->
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <section class="scroll-trigger-section">
+        <div class="trigger-sticky-container">
+            <div class="dynamic-bg" id="bgCircle"></div>
+            <h2 class="big-text" id="zoomText">
+                APRENDE<br>MÁS DE MÍ
+            </h2>
+            <div class="scroll-indicator"><i class="fas fa-chevron-down"></i></div>
+        </div>
+    </section>
 
+    <section class="cards-section" id="cardsSection">
+        <div class="cards-wrapper">
+            
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-user-astronaut"></i></div>
+                    <div class="card-num">01</div>
+                </div>
+                <h3>¿Quién soy?</h3>
+                <p>Soy KeyZer, un apasionado por la edicion de video, me gustan los videojuegos y aveces me gusta programar cosas y me encanta escuchar musica, actualmente estudio Ingenieria en Sistemas lo que me ha llevado a crear este portal de creadores.</p>
+            </div>
+
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-meteor"></i></div>
+                    <div class="card-num">02</div>
+                </div>
+                <h3>Mi Historia</h3>
+                <p>Empeze a editar desde los 12 años como un hobby, ahora mismo trabajo bajo el nickname de KeyZer y como estudio bajo el nombre de SoraReworks, la programacion es algo nuevo que voy practicando dia a dia, esperando llegar a algo mas grande.</p>
+            </div>
+
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="card-num">03</div>
+                </div>
+                <h3>Habilidades</h3>
+                <div class="mini-grid">
+                    <div class="mini-item">
+                        <i class="fas fa-film"></i>
+                        <span>Adobe Premiere</span>
+                    </div>
+                    <div class="mini-item">
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                        <span>After Effects</span>
+                    </div>
+                    <div class="mini-item">
+                        <i class="fab fa-java"></i>
+                        <span>Java</span>
+                    </div>
+                    <div class="mini-item">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>Web Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-paper-plane"></i></div>
+                    <div class="card-num">04</div>
+                </div>
+                <h3>Contacto</h3>
+                <p>Estoy abierto a cualquier proyecto de programacion al igual que proyectos de Edicion de video, puedes obtener mis links al principio de este Portal</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="final-section">
+        <canvas id="meshCanvas"></canvas>
+        <div class="final-content-wrapper">
+            <div class="final-text-side">
+                <div class="final-title">
+                    GRACIAS POR <span class="highlight">OBSERVAR</span><br>
+                    MI PROYECTO PERSONAL
+                </div>
+                <a href="#container" class="final-btn-new">
+                    <i class="fas fa-folder-open"></i> CONOCE MI PORTAFOLIO <i class="fas fa-arrow-right"></i>
+                </a>
+                <div class="final-links">
+                    <a href="#">TWITTER</a>
+                    <a href="#">GITHUB</a>
+                    <a href="#">WEBSITE</a>
+                    <span>DESIGNED BY KEYZER</span>
+                </div>
+            </div>
+            <div class="final-image-side">
+                <img src="final.gif" alt="Anime Character" class="character-img" onerror="this.src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaG13M3p1cTN4aG13M3p1cTN4aG13M3p1cTN4aG13MyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/MDJ9IbxxvDUQM/giphy.gif'">
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
     <script>
-        // Initialize Lenis Smooth Scroll
+        // --- 1. SETUP VARIABLES & DOM ELEMENTS (GLOBAL) ---
+        // This fixes ReferenceError by ensuring all elements are selected before use
+        const scrollSection = document.querySelector('.scroll-trigger-section');
+        const bgCircle = document.getElementById('bgCircle');
+        const zoomText = document.getElementById('zoomText');
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+        
+        // Cubes
+        const cubeContainer = document.querySelector('.cube-container');
+        const cube = document.querySelector('.cube');
+        const cubeContainer2 = document.querySelector('.cube-container-2');
+        const cube2 = document.querySelector('.cube-2');
+        
+        // --- 2. LENIS SMOOTH SCROLL ---
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -851,14 +749,12 @@
             lenis.raf(time);
             requestAnimationFrame(raf);
         }
-
         requestAnimationFrame(raf);
 
-        // Create floating particles
+        // --- 3. PARTICLES TOP (ORIGINAL LOGIC) ---
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = 50;
-
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
@@ -866,288 +762,237 @@
                 particle.style.top = Math.random() * 100 + '%';
                 particle.style.animationDelay = Math.random() * 15 + 's';
                 particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                
                 const colors = ['#FFB6D9', '#BDE0FE', '#E7C6FF', '#FFC8DD'];
                 particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                
                 particlesContainer.appendChild(particle);
             }
         }
-
         createParticles();
 
-        // Interactive cube with mouse and scroll - CUBE 1 (top right)
-        const cubeContainer = document.querySelector('.cube-container');
-        const cube = document.querySelector('.cube');
+        // --- 4. 3D CUBES LOGIC (RESTORED INTERACTIVITY) ---
         
         let isDragging = false;
-        let previousMouseX = 0;
-        let previousMouseY = 0;
-        let rotationX = 0;
-        let rotationY = 0;
-        let scrollRotation = 0;
-        let targetRotationX = 0;
-        let targetRotationY = 0;
-        let autoRotationSpeed = { x: 0.1, y: 0.2 }; // Velocidad de auto-rotación lenta
-
-        // Interactive cube with mouse and scroll - CUBE 2 (bottom left)
-        const cubeContainer2 = document.querySelector('.cube-container-2');
-        const cube2 = document.querySelector('.cube-2');
-        
         let isDragging2 = false;
-        let previousMouseX2 = 0;
-        let previousMouseY2 = 0;
-        let rotationX2 = 0;
-        let rotationY2 = 0;
-        let autoRotationSpeed2 = { x: -0.15, y: 0.25 }; // Rotación invertida para variedad
-
-        // Auto-rotation animation loop
+        
+        let previousMouseX = 0, previousMouseY = 0;
+        let previousMouseX2 = 0, previousMouseY2 = 0;
+        
+        // Independent rotation states
+        let rotationX = 0, rotationY = 0;
+        let rotationX2 = 0, rotationY2 = 0;
+        
+        // Auto-rotation speeds
+        let autoRotationSpeed = { x: 0.1, y: 0.2 }; 
+        let autoRotationSpeed2 = { x: -0.15, y: 0.25 };
+        
+        // Main Animation Loop
         function animateCube() {
+            // Cube 1 Auto Rotation (only if not dragging)
             if (!isDragging) {
                 rotationX += autoRotationSpeed.x;
                 rotationY += autoRotationSpeed.y;
-                cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+                if (cube) cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
             }
+            
+            // Cube 2 Auto Rotation (only if not dragging)
             if (!isDragging2) {
                 rotationX2 += autoRotationSpeed2.x;
                 rotationY2 += autoRotationSpeed2.y;
-                cube2.style.transform = `rotateX(${rotationX2}deg) rotateY(${rotationY2}deg)`;
+                if (cube2) cube2.style.transform = `rotateX(${rotationX2}deg) rotateY(${rotationY2}deg)`;
             }
+            
             requestAnimationFrame(animateCube);
         }
-
-        // Disable auto animation and apply initial rotation
-        cube.style.animation = 'none';
-        cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
-        cube2.style.animation = 'none';
-        cube2.style.transform = `rotateX(${rotationX2}deg) rotateY(${rotationY2}deg)`;
-        
-        // Start auto-rotation
         animateCube();
 
-        // Mouse interaction - CUBE 1
-        cubeContainer.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            previousMouseX = e.clientX;
-            previousMouseY = e.clientY;
-            cube.style.transition = 'none';
-        });
+        // --- Event Listeners for CUBE 1 ---
+        if (cubeContainer) {
+            // Mouse Events
+            cubeContainer.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                previousMouseX = e.clientX;
+                previousMouseY = e.clientY;
+                if(cube) cube.style.transition = 'none'; // Disable transition for instant follow
+            });
 
-        // Mouse interaction - CUBE 2
-        cubeContainer2.addEventListener('mousedown', (e) => {
-            isDragging2 = true;
-            previousMouseX2 = e.clientX;
-            previousMouseY2 = e.clientY;
-            cube2.style.transition = 'none';
-        });
+            // Touch Events
+            cubeContainer.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                previousTouchX = e.touches[0].clientX;
+                previousTouchY = e.touches[0].clientY;
+                if(cube) cube.style.transition = 'none';
+                e.preventDefault(); // Prevent scroll while rotating cube
+            });
+        }
 
-        document.addEventListener('mousemove', (e) => {
-            // Cube 1 dragging
-            if (isDragging) {
+        // --- Event Listeners for CUBE 2 ---
+        if (cubeContainer2) {
+            // Mouse Events
+            cubeContainer2.addEventListener('mousedown', (e) => {
+                isDragging2 = true;
+                previousMouseX2 = e.clientX;
+                previousMouseY2 = e.clientY;
+                if(cube2) cube2.style.transition = 'none';
+            });
+
+            // Touch Events
+            cubeContainer2.addEventListener('touchstart', (e) => {
+                isDragging2 = true;
+                previousTouchX2 = e.touches[0].clientX;
+                previousTouchY2 = e.touches[0].clientY;
+                if(cube2) cube2.style.transition = 'none';
+                e.preventDefault();
+            });
+        }
+
+        // Global Move & Up Listeners
+        window.addEventListener('mousemove', (e) => {
+            // Drag Logic Cube 1
+            if (isDragging && cube) {
                 const deltaX = e.clientX - previousMouseX;
                 const deltaY = e.clientY - previousMouseY;
                 
-                rotationY += deltaX * 0.8;
-                rotationX -= deltaY * 0.8;
+                rotationY += deltaX * 0.5;
+                rotationX -= deltaY * 0.5;
                 
                 cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
                 
                 previousMouseX = e.clientX;
                 previousMouseY = e.clientY;
-            } else {
-                // Parallax effect with mouse - Cube 1
-                const rect = cubeContainer.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                
-                const deltaX = (e.clientX - centerX) / 30;
-                const deltaY = (e.clientY - centerY) / 30;
-                
-                cubeContainer.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
             }
-
-            // Cube 2 dragging
-            if (isDragging2) {
+            
+            // Drag Logic Cube 2
+            if (isDragging2 && cube2) {
                 const deltaX = e.clientX - previousMouseX2;
                 const deltaY = e.clientY - previousMouseY2;
                 
-                rotationY2 += deltaX * 0.8;
-                rotationX2 -= deltaY * 0.8;
+                rotationY2 += deltaX * 0.5;
+                rotationX2 -= deltaY * 0.5;
                 
                 cube2.style.transform = `rotateX(${rotationX2}deg) rotateY(${rotationY2}deg)`;
                 
                 previousMouseX2 = e.clientX;
                 previousMouseY2 = e.clientY;
-            } else {
-                // Parallax effect with mouse - Cube 2
-                const rect2 = cubeContainer2.getBoundingClientRect();
-                const centerX2 = rect2.left + rect2.width / 2;
-                const centerY2 = rect2.top + rect2.height / 2;
-                
-                const deltaX2 = (e.clientX - centerX2) / 30;
-                const deltaY2 = (e.clientY - centerY2) / 30;
-                
-                cubeContainer2.style.transform = `translate(${deltaX2}px, ${deltaY2}px)`;
             }
         });
 
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
-            cube.style.transition = 'transform 0.1s ease-out';
-            isDragging2 = false;
-            cube2.style.transition = 'transform 0.1s ease-out';
+        window.addEventListener('mouseup', () => {
+            if(isDragging) {
+                isDragging = false;
+                if(cube) cube.style.transition = 'transform 0.1s ease-out';
+            }
+            if(isDragging2) {
+                isDragging2 = false;
+                if(cube2) cube2.style.transition = 'transform 0.1s ease-out';
+            }
+        });
+        
+        // Global Touch Move & End
+        let previousTouchX = 0, previousTouchY = 0;
+        let previousTouchX2 = 0, previousTouchY2 = 0;
+        
+        window.addEventListener('touchmove', (e) => {
+             // Cube 1
+             if (isDragging && cube) {
+                 const t = e.touches[0];
+                 const dx = t.clientX - previousTouchX;
+                 const dy = t.clientY - previousTouchY;
+                 rotationY += dx * 0.8;
+                 rotationX -= dy * 0.8;
+                 cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+                 previousTouchX = t.clientX;
+                 previousTouchY = t.clientY;
+             }
+             // Cube 2
+             if (isDragging2 && cube2) {
+                 const t = e.touches[0];
+                 const dx = t.clientX - previousTouchX2; // We need to track prev pos for cube 2 separately
+                 const dy = t.clientY - previousTouchY2;
+                 rotationY2 += dx * 0.8;
+                 rotationX2 -= dy * 0.8;
+                 cube2.style.transform = `rotateX(${rotationX2}deg) rotateY(${rotationY2}deg)`;
+                 previousTouchX2 = t.clientX;
+                 previousTouchY2 = t.clientY;
+             }
         });
 
-        // Scroll interaction
+        window.addEventListener('touchend', () => {
+             isDragging = false;
+             isDragging2 = false;
+             if(cube) cube.style.transition = 'transform 0.1s ease-out';
+             if(cube2) cube2.style.transition = 'transform 0.1s ease-out';
+        });
+
+        // --- 5. SCROLL INTERACTION (CUBES & PORTAL) ---
         let lastScroll = 0;
+        
         lenis.on('scroll', ({ scroll }) => {
             const scrollDelta = scroll - lastScroll;
             lastScroll = scroll;
             
+            // Apply momentum to cubes if not dragging
             if (!isDragging) {
                 rotationY += scrollDelta * 0.3;
                 rotationX += scrollDelta * 0.15;
-                cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
             }
             
             if (!isDragging2) {
-                rotationY2 -= scrollDelta * 0.25; // Dirección opuesta
+                rotationY2 -= scrollDelta * 0.25; 
                 rotationX2 += scrollDelta * 0.2;
-                cube2.style.transform = `rotateX(${rotationX2}deg) rotateY(${rotationY2}deg)`;
-            }
-        });
-
-        // Touch support for mobile - CUBE 1
-        let previousTouchX = 0;
-        let previousTouchY = 0;
-
-        cubeContainer.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            previousTouchX = e.touches[0].clientX;
-            previousTouchY = e.touches[0].clientY;
-            cube.style.transition = 'none';
-            e.preventDefault();
-        });
-
-        // Touch support for mobile - CUBE 2
-        let previousTouchX2 = 0;
-        let previousTouchY2 = 0;
-
-        cubeContainer2.addEventListener('touchstart', (e) => {
-            isDragging2 = true;
-            previousTouchX2 = e.touches[0].clientX;
-            previousTouchY2 = e.touches[0].clientY;
-            cube2.style.transition = 'none';
-            e.preventDefault();
-        });
-
-        document.addEventListener('touchmove', (e) => {
-            if (isDragging && e.touches.length > 0) {
-                const deltaX = e.touches[0].clientX - previousTouchX;
-                const deltaY = e.touches[0].clientY - previousTouchY;
-                
-                rotationY += deltaX * 0.8;
-                rotationX -= deltaY * 0.8;
-                
-                cube.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
-                
-                previousTouchX = e.touches[0].clientX;
-                previousTouchY = e.touches[0].clientY;
             }
             
-            if (isDragging2 && e.touches.length > 0) {
-                const deltaX = e.touches[0].clientX - previousTouchX2;
-                const deltaY = e.touches[0].clientY - previousTouchY2;
-                
-                rotationY2 += deltaX * 0.8;
-                rotationX2 -= deltaY * 0.8;
-                
-                cube2.style.transform = `rotateX(${rotationX2}deg) rotateY(${rotationY2}deg)`;
-                
-                previousTouchX2 = e.touches[0].clientX;
-                previousTouchY2 = e.touches[0].clientY;
-            }
-        });
+            // --- PORTAL LOGIC ---
+            if (!scrollSection) return;
 
-        document.addEventListener('touchend', () => {
-            isDragging = false;
-            cube.style.transition = 'transform 0.1s ease-out';
-            isDragging2 = false;
-            cube2.style.transition = 'transform 0.1s ease-out';
-        });
+            const rect = scrollSection.getBoundingClientRect();
+            const sectionTop = rect.top;
+            const windowHeight = window.innerHeight;
+            const sectionHeight = scrollSection.offsetHeight;
+            
+            if (sectionTop <= 0 && Math.abs(sectionTop) < sectionHeight) {
+                const progress = Math.abs(sectionTop) / (sectionHeight - windowHeight);
+                let scale = 1 + (progress * 80); 
+                let circleScale = 0;
+                if (progress > 0.1) circleScale = (progress - 0.1) * 4;
 
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                if (zoomText) {
+                    zoomText.style.transform = `scale(${scale})`;
+                    if (progress > 0.4) zoomText.style.opacity = Math.max(0, 1 - (progress - 0.4) * 5);
+                    else zoomText.style.opacity = 1;
                 }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in-up').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Add hover effect to link cards with parallax (except contact card)
-        document.querySelectorAll('.link-card').forEach(card => {
-            // Skip contact card
-            if (card.id === 'contact-card') return;
-            
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
                 
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
+                if (bgCircle) bgCircle.style.transform = `translate(-50%, -50%) scale(${circleScale})`;
                 
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
+                if (scrollIndicator) {
+                    if (progress > 0.05) scrollIndicator.style.opacity = 0;
+                    else scrollIndicator.style.opacity = 0.7;
+                }
+
+                if (cube && cube2) {
+                     if(progress > 0.05) {
+                         cubeContainer.classList.add('hidden');
+                         cubeContainer2.classList.add('hidden');
+                     } else {
+                         cubeContainer.classList.remove('hidden');
+                         cubeContainer2.classList.remove('hidden');
+                     }
+                }
+
+            } else if (sectionTop > 0) {
+                // Reset portal elements when scrolling up
+                if(zoomText) {
+                    zoomText.style.transform = `scale(1)`;
+                    zoomText.style.opacity = 1;
+                }
+                if(bgCircle) bgCircle.style.transform = `translate(-50%, -50%) scale(0)`;
+                if(scrollIndicator) scrollIndicator.style.opacity = 0.7;
                 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px) scale(1.02)`;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-            });
-        });
-
-        // Contact card email popup with global function
-        window.toggleEmailPopup = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const popup = document.getElementById('email-popup');
-            if (popup) {
-                const isVisible = popup.style.display === 'block';
-                popup.style.display = isVisible ? 'none' : 'block';
-                console.log('Popup toggled:', popup.style.display);
-            }
-        };
-
-        // Close popup when clicking outside
-        document.addEventListener('click', function(e) {
-            const contactCard = document.getElementById('contact-card');
-            const emailPopup = document.getElementById('email-popup');
-            
-            if (contactCard && emailPopup && !contactCard.contains(e.target)) {
-                emailPopup.style.display = 'none';
+                if (cube) cubeContainer.classList.remove('hidden');
+                if (cube2) cubeContainer2.classList.remove('hidden');
             }
         });
 
-        // Smooth scroll to top on logo click
-        document.querySelector('h1').addEventListener('click', () => {
-            lenis.scrollTo(0);
-        });
-
-        // Discord Presence Integration using Lanyard API
+        // --- 6. DISCORD WIDGET ---
         const DISCORD_USER_ID = '347575508948746241';
         const discordWidget = document.getElementById('discord-widget');
 
@@ -1155,177 +1000,170 @@
             try {
                 const response = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`);
                 const data = await response.json();
-                
-                console.log('Lanyard Response:', data); // Debug
-                
-                if (data.success) {
-                    const presence = data.data;
-                    updateDiscordWidget(presence);
-                } else {
-                    // Si Lanyard no funciona, mostrar información estática
-                    showStaticProfile();
-                }
-            } catch (error) {
-                console.error('Error fetching Discord presence:', error);
-                showStaticProfile();
-            }
+                if (data.success) updateDiscordWidget(data.data);
+                else showStaticProfile();
+            } catch (error) { showStaticProfile(); }
         }
 
         function updateDiscordWidget(presence) {
             const status = presence.discord_status;
             const user = presence.discord_user;
             const activities = presence.activities || [];
-            
+            const mainActivity = activities.find(a => a.type !== 4);
             let activityHTML = '';
-            
-            // Buscar actividad principal (juego, Spotify, etc.)
-            const mainActivity = activities.find(a => a.type !== 4); // type 4 es custom status
-            
             if (mainActivity) {
-                const activityName = mainActivity.name;
-                const details = mainActivity.details || '';
-                const state = mainActivity.state || '';
-                
                 activityHTML = `
                     <div class="discord-activity">
                         <div class="activity-name">
                             ${mainActivity.type === 2 ? '<i class="fab fa-spotify"></i>' : '<i class="fas fa-gamepad"></i>'} 
-                            ${activityName}
+                            ${mainActivity.name}
                         </div>
-                        ${details ? `<div class="activity-details">${details}</div>` : ''}
-                        ${state ? `<div class="activity-state">${state}</div>` : ''}
-                    </div>
-                `;
+                        ${mainActivity.details ? `<div class="activity-details">${mainActivity.details}</div>` : ''}
+                    </div>`;
             }
-            
-            const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=128`;
-            
-            discordWidget.innerHTML = `
-                <div class="discord-status">
-                    <div class="discord-avatar">
-                        <img src="${avatarUrl}" alt="${user.username}">
-                        <span class="status-indicator status-${status}"></span>
+            if (discordWidget) {
+                discordWidget.innerHTML = `
+                    <div class="discord-status">
+                        <div class="discord-avatar">
+                            <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=128" alt="${user.username}">
+                            <span class="status-indicator status-${status}"></span>
+                        </div>
+                        <div class="discord-info">
+                            <div class="discord-username">${user.username}</div>
+                            <div class="discord-tag">${user.global_name || user.username}</div>
+                        </div>
                     </div>
-                    <div class="discord-info">
-                        <div class="discord-username">${user.username}</div>
-                        <div class="discord-tag">${user.global_name || user.username}</div>
-                    </div>
-                </div>
-                ${activityHTML}
-                ${!mainActivity ? '<p style="color: var(--light-blue); opacity: 0.7; margin-top: 10px;">Sin actividad actual</p>' : ''}
-            `;
+                    ${activityHTML}`;
+            }
         }
 
         function showStaticProfile() {
-            discordWidget.innerHTML = `
-                <div style="text-align: center;">
-                    <div style="margin-bottom: 20px;">
-                        <i class="fab fa-discord" style="font-size: 4em; color: var(--primary-pink);"></i>
-                    </div>
-                    <div class="discord-username" style="margin-bottom: 10px;">Keyzer</div>
-                    <p style="color: var(--light-blue); opacity: 0.8; margin-bottom: 15px;">
-                        Creador de Contenido Digital
-                    </p>
-                    <div class="discord-activity">
-                        <div class="activity-name">
-                            <i class="fas fa-info-circle"></i> Activo en Discord
-                        </div>
-                        <div class="activity-details">
-                            Para ver mi estado en tiempo real, únete al servidor de Discord
-                        </div>
-                    </div>
-                    <p style="font-size: 0.85em; color: var(--light-blue); margin-top: 15px; opacity: 0.6;">
-                        Para habilitar presencia en vivo: <a href="https://discord.gg/lanyard" target="_blank" style="color: var(--primary-pink);">Únete al servidor de Lanyard</a>
-                    </p>
-                </div>
-            `;
+             if (discordWidget) {
+                 discordWidget.innerHTML = `
+                    <div style="text-align: center;">
+                        <div style="margin-bottom: 20px;"><i class="fab fa-discord" style="font-size: 4em; color: var(--primary-pink);"></i></div>
+                        <div class="discord-username" style="margin-bottom: 10px;">Keyzer</div>
+                        <p style="color: var(--light-blue); opacity: 0.8; margin-bottom: 15px;">Creador de Contenido</p>
+                    </div>`;
+             }
         }
-
-        function showError() {
-            discordWidget.innerHTML = `
-                <p style="color: var(--primary-pink);">
-                    <i class="fas fa-exclamation-circle"></i> 
-                    No se pudo conectar con Discord
-                </p>
-                <p style="font-size: 0.9em; color: var(--light-blue); margin-top: 10px; opacity: 0.7;">
-                    Verifica tu Discord User ID
-                </p>
-            `;
-        }
-
-        // Actualizar presencia cada 30 segundos
         fetchDiscordPresence();
-        setInterval(fetchDiscordPresence, 30000);
 
-        // Typewriter effect for footer
+        // --- 7. TYPEWRITER ---
         const typewriterElement = document.getElementById('typewriter');
-        const phrases = [
-            'Sora.Reworks',
-            'KeyZer',
-            'Nightcore 24/7',
-            'Xbox all day'
-        ];
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let typingSpeed = 150;
-
-        function typeWriter() {
-            const currentPhrase = phrases[phraseIndex];
+        if(typewriterElement) {
+            const phrases = ['Sora.Reworks', 'KeyZer', 'Nightcore 24/7'];
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
             
-            if (isDeleting) {
-                typewriterElement.textContent = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
-                typingSpeed = 75;
-            } else {
-                typewriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
-                typingSpeed = 150;
+            function typeWriter() {
+                const currentPhrase = phrases[phraseIndex];
+                if (isDeleting) {
+                    typewriterElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typewriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+                
+                let speed = isDeleting ? 75 : 150;
+                if (!isDeleting && charIndex === currentPhrase.length) { speed = 2000; isDeleting = true; }
+                else if (isDeleting && charIndex === 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; speed = 500; }
+                setTimeout(typeWriter, speed);
             }
-            
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                // Pause at end of phrase
-                typingSpeed = 2000;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typingSpeed = 500;
-            }
-            
-            setTimeout(typeWriter, typingSpeed);
+            setTimeout(typeWriter, 1000);
         }
 
-        // Start typewriter effect
-        setTimeout(typeWriter, 1000);
-
-        // Add sparkle effect on cursor
-        document.addEventListener('mousemove', (e) => {
-            if (Math.random() > 0.95) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'particle';
-                sparkle.style.left = e.clientX + 'px';
-                sparkle.style.top = e.clientY + 'px';
-                sparkle.style.position = 'fixed';
-                sparkle.style.width = '3px';
-                sparkle.style.height = '3px';
-                sparkle.style.pointerEvents = 'none';
-                sparkle.style.animation = 'sparkle 1s ease-out forwards';
-                document.body.appendChild(sparkle);
-                
-                setTimeout(() => sparkle.remove(), 1000);
-            }
+        // --- 8. POPUP CONTACTO ---
+        window.toggleEmailPopup = function(e) {
+            e.preventDefault(); e.stopPropagation();
+            const popup = document.getElementById('email-popup');
+            if (popup) popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+        };
+        document.addEventListener('click', function(e) {
+            const contactCard = document.getElementById('contact-card');
+            const popup = document.getElementById('email-popup');
+            if (contactCard && popup && !contactCard.contains(e.target)) popup.style.display = 'none';
         });
 
-        // Sparkle animation
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes sparkle {
-                0% { opacity: 1; transform: scale(1); }
-                100% { opacity: 0; transform: scale(0) translateY(-50px); }
+        // --- 9. MESH NETWORK ANIMATION ---
+        const meshCanvas = document.getElementById('meshCanvas');
+        if (meshCanvas) {
+            const ctx = meshCanvas.getContext('2d');
+            let width, height;
+            let points = [];
+            
+            function resize() {
+                width = meshCanvas.width = meshCanvas.offsetWidth;
+                height = meshCanvas.height = meshCanvas.offsetHeight;
+                initPoints();
             }
-        `;
-        document.head.appendChild(style);
+
+            function initPoints() {
+                points = [];
+                const count = Math.floor(width * height / 15000); // Density
+                for(let i=0; i<count; i++) {
+                    points.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5,
+                        size: Math.random() * 2
+                    });
+                }
+            }
+
+            function draw() {
+                ctx.clearRect(0,0,width,height);
+                ctx.fillStyle = 'rgba(255,255,255,0.6)';
+                ctx.strokeStyle = 'rgba(255,255,255,0.15)'; // Mesh line color
+
+                for(let i=0; i<points.length; i++) {
+                    let p = points[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if(p.x < 0 || p.x > width) p.vx *= -1;
+                    if(p.y < 0 || p.y > height) p.vy *= -1;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+                    ctx.fill();
+
+                    // Connect
+                    for(let j=i+1; j<points.length; j++) {
+                        let p2 = points[j];
+                        let dx = p.x - p2.x;
+                        let dy = p.y - p2.y;
+                        let dist = Math.sqrt(dx*dx + dy*dy);
+                        if(dist < 100) {
+                            ctx.beginPath();
+                            ctx.lineWidth = 1 - (dist/100);
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', resize);
+            resize();
+            draw();
+        }
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+        document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
