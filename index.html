@@ -158,6 +158,40 @@
         /* Footer Original Top */
         .original-footer { text-align: center; margin-top: 80px; padding: 40px 20px; color: var(--light-blue); opacity: 0.8; }
 
+        /* Email Popup Styles */
+        #email-popup {
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%) scale(0.8);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 20px 25px;
+            border-radius: 12px;
+            white-space: nowrap;
+            box-shadow: 0 8px 32px rgba(255, 182, 217, 0.6);
+            border: 2px solid var(--primary-pink);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-align: center;
+        }
+        
+        #email-popup.email-popup-visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) scale(1);
+        }
+        
+        #copy-email-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        #copy-email-btn:active {
+            transform: scale(0.95);
+        }
+
         /* 3D Cube Animation */
         .cube-container { position: fixed; top: 10%; right: 10%; width: 150px; height: 150px; perspective: 1000px; z-index: 1; transition: opacity 0.5s ease, transform 0.3s ease; cursor: grab; }
         .cube-container-2 { position: fixed; bottom: 10%; left: 10%; width: 150px; height: 150px; perspective: 1000px; z-index: 1; transition: opacity 0.5s ease, transform 0.3s ease; cursor: grab; }
@@ -195,43 +229,57 @@
             background: radial-gradient(circle, #E7BBEA 0%, #C8B6FF 100%);
             transform: translate(-50%, -50%) scale(0);
             border-radius: 50%;
-            transition: transform 0.1s linear;
             z-index: -1;
             pointer-events: none;
+            /* GPU Acceleration */
+            will-change: transform;
+            transform-origin: center center;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
-        /* EFECTO CAMALEÓN (CHAMELEON EFFECT) */
+        /* EFECTO CAMALEÓN OPTIMIZADO */
         .big-text {
-            font-size: clamp(3rem, 10vw, 8rem);
+            font-size: clamp(4rem, 12vw, 10rem);
             font-weight: 900; text-align: center;
             line-height: 1; text-transform: uppercase;
             font-family: 'Montserrat', sans-serif;
             
-            /* Gradient Background for Text */
+            /* Gradient Background for Text - Optimized */
             background: linear-gradient(
-                45deg, 
-                #FFB6D9, /* Pink */
-                #E7C6FF, /* Lavender */
-                #7B2CBF, /* Purple */
-                #FFB6D9  /* Back to Pink */
+                90deg, 
+                #FFB6D9,
+                #E7C6FF,
+                #7B2CBF,
+                #E7C6FF,
+                #FFB6D9
             );
-            background-size: 300% 300%;
+            background-size: 200% 100%;
             
             /* Clip background to text */
             -webkit-background-clip: text;
             background-clip: text;
-            
-            /* Make text transparent so background shows */
             color: transparent;
             -webkit-text-fill-color: transparent;
             
-            /* Drop shadow instead of text-shadow for clipped text */
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+            /* GPU Acceleration - Critical for smooth animation */
+            will-change: transform, opacity;
+            transform-origin: center center;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
             
-            /* Animation */
-            animation: chameleon 6s ease infinite;
+            /* TEXT RENDERING - Prevents pixelation */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: geometricPrecision;
             
-            transition: opacity 0.3s ease;
+            /* Chameleon Animation - GPU optimized */
+            animation: chameleonOptimized 4s linear infinite;
+        }
+
+        @keyframes chameleonOptimized {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
         }
 
         @keyframes chameleon {
@@ -595,11 +643,14 @@
                 <span>Discord Community</span>
             </a>
             
-            <div class="link-card fade-in-up" style="animation-delay: 0.7s; cursor: pointer; position: relative;" id="contact-card" onclick="toggleEmailPopup(event)">
+            <div class="link-card fade-in-up" style="animation-delay: 0.7s; cursor: pointer; position: relative;" id="contact-card">
                 <span class="link-icon"><i class="fas fa-envelope"></i></span>
                 <span>Contacto</span>
-                <div id="email-popup" style="display: none; position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); padding: 15px 25px; border-radius: 12px; white-space: nowrap; box-shadow: 0 8px 32px rgba(255, 182, 217, 0.6); border: 2px solid var(--primary-pink); z-index: 1000;">
-                    <p style="margin: 0; color: #1a1a2e; font-weight: 600; font-size: 1em;">itzfarlan21@gmail.com</p>
+                <div id="email-popup" class="email-popup-hidden">
+                    <p style="margin: 0 0 10px 0; color: #1a1a2e; font-weight: 600; font-size: 1em;">itzfarlan21@gmail.com</p>
+                    <button id="copy-email-btn" style="background: var(--gradient-1); border: none; padding: 8px 16px; border-radius: 8px; color: #1a1a2e; font-weight: 600; cursor: pointer; font-size: 0.85em; transition: transform 0.2s ease;">
+                        <i class="fas fa-copy"></i> Copiar
+                    </button>
                     <div style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 10px solid rgba(255, 255, 255, 0.98);"></div>
                 </div>
             </div>
@@ -925,6 +976,53 @@
 
         // --- 5. SCROLL INTERACTION (CUBES & PORTAL) ---
         let lastScroll = 0;
+        let ticking = false;
+        let cachedProgress = 0;
+        let lastCubeHidden = false;
+        
+        // Optimized portal update function
+        function updatePortal(progress) {
+            // Reduced max scale (40 instead of 80) to prevent pixelation
+            // Combined with larger initial font = same visual effect, less blur
+            const scale = 1 + (progress * 40);
+            const circleScale = progress > 0.1 ? (progress - 0.1) * 4 : 0;
+            const textOpacity = progress > 0.4 ? Math.max(0, 1 - (progress - 0.4) * 5) : 1;
+            
+            if (zoomText) {
+                zoomText.style.transform = `translate3d(0,0,0) scale(${scale})`;
+                zoomText.style.opacity = textOpacity;
+            }
+            
+            if (bgCircle) {
+                bgCircle.style.transform = `translate3d(-50%, -50%, 0) scale(${circleScale})`;
+            }
+            
+            // Batch cube visibility updates
+            const shouldHide = progress > 0.05;
+            if (shouldHide !== lastCubeHidden) {
+                lastCubeHidden = shouldHide;
+                if (cubeContainer) cubeContainer.classList.toggle('hidden', shouldHide);
+                if (cubeContainer2) cubeContainer2.classList.toggle('hidden', shouldHide);
+            }
+            
+            if (scrollIndicator) {
+                scrollIndicator.style.opacity = progress > 0.05 ? 0 : 0.7;
+            }
+        }
+        
+        function resetPortal() {
+            if (zoomText) {
+                zoomText.style.transform = 'translate3d(0,0,0) scale(1)';
+                zoomText.style.opacity = 1;
+            }
+            if (bgCircle) {
+                bgCircle.style.transform = 'translate3d(-50%, -50%, 0) scale(0)';
+            }
+            if (scrollIndicator) scrollIndicator.style.opacity = 0.7;
+            if (cubeContainer) cubeContainer.classList.remove('hidden');
+            if (cubeContainer2) cubeContainer2.classList.remove('hidden');
+            lastCubeHidden = false;
+        }
         
         lenis.on('scroll', ({ scroll }) => {
             const scrollDelta = scroll - lastScroll;
@@ -941,54 +1039,26 @@
                 rotationX2 += scrollDelta * 0.2;
             }
             
-            // --- PORTAL LOGIC ---
+            // --- PORTAL LOGIC with requestAnimationFrame throttling ---
             if (!scrollSection) return;
-
-            const rect = scrollSection.getBoundingClientRect();
-            const sectionTop = rect.top;
-            const windowHeight = window.innerHeight;
-            const sectionHeight = scrollSection.offsetHeight;
             
-            if (sectionTop <= 0 && Math.abs(sectionTop) < sectionHeight) {
-                const progress = Math.abs(sectionTop) / (sectionHeight - windowHeight);
-                let scale = 1 + (progress * 80); 
-                let circleScale = 0;
-                if (progress > 0.1) circleScale = (progress - 0.1) * 4;
-
-                if (zoomText) {
-                    zoomText.style.transform = `scale(${scale})`;
-                    if (progress > 0.4) zoomText.style.opacity = Math.max(0, 1 - (progress - 0.4) * 5);
-                    else zoomText.style.opacity = 1;
-                }
-                
-                if (bgCircle) bgCircle.style.transform = `translate(-50%, -50%) scale(${circleScale})`;
-                
-                if (scrollIndicator) {
-                    if (progress > 0.05) scrollIndicator.style.opacity = 0;
-                    else scrollIndicator.style.opacity = 0.7;
-                }
-
-                if (cube && cube2) {
-                     if(progress > 0.05) {
-                         cubeContainer.classList.add('hidden');
-                         cubeContainer2.classList.add('hidden');
-                     } else {
-                         cubeContainer.classList.remove('hidden');
-                         cubeContainer2.classList.remove('hidden');
-                     }
-                }
-
-            } else if (sectionTop > 0) {
-                // Reset portal elements when scrolling up
-                if(zoomText) {
-                    zoomText.style.transform = `scale(1)`;
-                    zoomText.style.opacity = 1;
-                }
-                if(bgCircle) bgCircle.style.transform = `translate(-50%, -50%) scale(0)`;
-                if(scrollIndicator) scrollIndicator.style.opacity = 0.7;
-                
-                if (cube) cubeContainer.classList.remove('hidden');
-                if (cube2) cubeContainer2.classList.remove('hidden');
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const rect = scrollSection.getBoundingClientRect();
+                    const sectionTop = rect.top;
+                    const windowHeight = window.innerHeight;
+                    const sectionHeight = scrollSection.offsetHeight;
+                    
+                    if (sectionTop <= 0 && Math.abs(sectionTop) < sectionHeight) {
+                        cachedProgress = Math.abs(sectionTop) / (sectionHeight - windowHeight);
+                        updatePortal(cachedProgress);
+                    } else if (sectionTop > 0) {
+                        resetPortal();
+                    }
+                    
+                    ticking = false;
+                });
+                ticking = true;
             }
         });
 
@@ -1076,16 +1146,51 @@
         }
 
         // --- 8. POPUP CONTACTO ---
-        window.toggleEmailPopup = function(e) {
-            e.preventDefault(); e.stopPropagation();
-            const popup = document.getElementById('email-popup');
-            if (popup) popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
-        };
-        document.addEventListener('click', function(e) {
-            const contactCard = document.getElementById('contact-card');
-            const popup = document.getElementById('email-popup');
-            if (contactCard && popup && !contactCard.contains(e.target)) popup.style.display = 'none';
-        });
+        const contactCard = document.getElementById('contact-card');
+        const emailPopup = document.getElementById('email-popup');
+        const copyEmailBtn = document.getElementById('copy-email-btn');
+        const emailToCopy = 'itzfarlan21@gmail.com';
+        
+        if (contactCard && emailPopup) {
+            // Toggle popup on card click
+            contactCard.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                emailPopup.classList.toggle('email-popup-visible');
+            });
+            
+            // Copy email button
+            if (copyEmailBtn) {
+                copyEmailBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navigator.clipboard.writeText(emailToCopy).then(function() {
+                        copyEmailBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                        setTimeout(function() {
+                            copyEmailBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
+                        }, 2000);
+                    }).catch(function() {
+                        // Fallback for older browsers
+                        const textArea = document.createElement('textarea');
+                        textArea.value = emailToCopy;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        copyEmailBtn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                        setTimeout(function() {
+                            copyEmailBtn.innerHTML = '<i class="fas fa-copy"></i> Copiar';
+                        }, 2000);
+                    });
+                });
+            }
+            
+            // Close popup when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!contactCard.contains(e.target)) {
+                    emailPopup.classList.remove('email-popup-visible');
+                }
+            });
+        }
 
         // --- 9. MESH NETWORK ANIMATION ---
         const meshCanvas = document.getElementById('meshCanvas');
